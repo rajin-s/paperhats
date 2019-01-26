@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>paperhats</title>
+
+    <style>
+        iframe {
+            border: none;
+            outline: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding-top: 2.4em;
+            z-index: -1000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="browser-bar">
+        <button onclick="location.reload()">Debug Refresh</button>
+        <button onclick="_page.location.reload()">Refresh</button>
+        <input type="text" />
+        <button>Go!</button>
+    </div>
+
+    <iframe id="page" src="web/index.html"></iframe>
+    
+    <script>
+        var _page = document.getElementById("page").contentWindow;
+    </script>
+</body>
+
+</html>
