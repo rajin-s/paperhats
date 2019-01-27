@@ -1,187 +1,154 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/s_propspawner.gd" type="Script" id=1]
 [ext_resource path="res://graphics/hero_1.png" type="Texture" id=2]
-[ext_resource path="res://graphics/hero_2.png" type="Texture" id=3]
-[ext_resource path="res://scripts/s_player.gd" type="Script" id=4]
-[ext_resource path="res://graphics/black.png" type="Texture" id=5]
-[ext_resource path="res://graphics/sword.png" type="Texture" id=6]
-[ext_resource path="res://graphics/particle.png" type="Texture" id=7]
-[ext_resource path="res://graphics/hand.png" type="Texture" id=8]
-[ext_resource path="res://scripts/s_playerhand.gd" type="Script" id=9]
+[ext_resource path="res://scripts/s_interacter.gd" type="Script" id=3]
+[ext_resource path="res://scripts/s_talker.gd" type="Script" id=4]
+[ext_resource path="res://graphics/bubble.png" type="Texture" id=5]
+[ext_resource path="res://prefabs/_PlayerStuff.tscn" type="PackedScene" id=6]
+[ext_resource path="res://graphics/window.png" type="Texture" id=7]
+[ext_resource path="res://Minimal5x7.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://scripts/s_speechtext.gd" type="Script" id=9]
+[ext_resource path="res://audio/tick.wav" type="AudioStream" id=10]
+[ext_resource path="res://scripts/s_speechtimer.gd" type="Script" id=11]
+[ext_resource path="res://prefabs/Enemy.tscn" type="PackedScene" id=12]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="RectangleShape2D" id=13]
 
-animations = [ {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "run",
-"speed": 5.0
-} ]
+extents = Vector2( 15, 15 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=14]
 
-extents = Vector2( 5.46, 6.94 )
+extents = Vector2( 4.35, 6.96 )
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="DynamicFont" id=15]
 
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+size = 32
+font_data = ExtResource( 8 )
 
-[sub_resource type="CurveTexture" id=5]
+[sub_resource type="Theme" id=16]
 
-curve = SubResource( 4 )
+default_font = SubResource( 15 )
 
-[sub_resource type="ParticlesMaterial" id=3]
-
-emission_shape = 1
-emission_sphere_radius = 2.25
-flag_disable_z = true
-gravity = Vector3( 0, -10, 0 )
-initial_velocity = 17.54
-initial_velocity_random = 1.0
-angular_velocity = 0.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 0.8
-scale_random = 1.0
-scale_curve = SubResource( 5 )
-
-[sub_resource type="ParticlesMaterial" id=8]
-
-emission_shape = 1
-emission_sphere_radius = 2.25
-flag_disable_z = true
-gravity = Vector3( 0, -10, 0 )
-initial_velocity = 17.54
-initial_velocity_random = 1.0
-angular_velocity = 0.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 1.84
-scale_random = 1.0
-scale_curve = SubResource( 5 )
-
-[sub_resource type="Animation" id=6]
-
-resource_name = "PlayerAttack"
-length = 1.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("HandRotater/Hand Anim Rotater:rotation_degrees")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.3, 0.5, 0.7 ),
-"transitions": PoolRealArray( 0.241484, 1, 0.267943, 0.25 ),
-"update": 0,
-"values": [ -75.0, 75.0, 80.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=7]
-
-resource_name = "PlayerAttackPrep"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Input:hand_anim_angle")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( -0.1, 1 ),
-"transitions": PoolRealArray( 1, 0.420448 ),
-"update": 0,
-"values": [ 0, -90.0 ]
-}
-
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 
 [node name="Floor" type="Node2D" parent="."]
 script = ExtResource( 1 )
 count = 500
 
-[node name="Player Stuff" type="Node2D" parent="."]
-
-[node name="Player" type="KinematicBody2D" parent="Player Stuff"]
-position = Vector2( 289, 270 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Player Stuff/Player"]
-frames = SubResource( 1 )
-speed_scale = 2.0
-playing = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Stuff/Player"]
-position = Vector2( 0.49826, 1.16257 )
-shape = SubResource( 2 )
-
-[node name="Input" type="Node" parent="Player Stuff/Player"]
-script = ExtResource( 4 )
-attack_speed = 100
-hand_anim_angle = -8.18182
-
-[node name="Camera2D" type="Camera2D" parent="Player Stuff/Player"]
+[node name="NPC" type="Sprite" parent="."]
 editor/display_folded = true
-current = true
-zoom = Vector2( 0.5, 0.5 )
-process_mode = 0
-smoothing_enabled = true
-editor_draw_limits = true
-editor_draw_drag_margin = true
+modulate = Color( 0.65098, 1, 0.431373, 1 )
+position = Vector2( 11.6066, 90.5326 )
+texture = ExtResource( 2 )
+
+[node name="Interaction Area" type="Area2D" parent="NPC"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/Interaction Area"]
+shape = SubResource( 13 )
+
+[node name="Interaction" type="Node" parent="NPC/Interaction Area"]
+script = ExtResource( 3 )
+
+[node name="Speech" type="Node" parent="NPC/Interaction Area/Interaction"]
+script = ExtResource( 4 )
+speech_name = "Georg"
+text = "Hello there.
+I am a cool guy.
+You should talk to me more!
+Bye!"
+bubble_path = NodePath("../../../../NPC/TalkBubble")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NPC"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/StaticBody2D"]
+shape = SubResource( 14 )
+
+[node name="TalkBubble" type="Sprite" parent="NPC"]
+position = Vector2( 7.85056, -11.9328 )
+texture = ExtResource( 5 )
+
+[node name="Player Stuff" parent="." instance=ExtResource( 6 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Textbox" type="NinePatchRect" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -254.5
+margin_top = -73.3276
+margin_right = 254.5
+margin_bottom = -10.3276
+texture = ExtResource( 7 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/Textbox"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+theme = SubResource( 16 )
+text = "Speech text goes here :)"
+autowrap = true
+script = ExtResource( 9 )
+
+[node name="SFX" type="AudioStreamPlayer" parent="CanvasLayer/Control/Textbox/Text"]
+stream = ExtResource( 10 )
+
+[node name="Nametext" type="Label" parent="CanvasLayer/Control/Textbox"]
+margin_left = 12.0
+margin_top = -33.0
+margin_right = 204.0
+theme = SubResource( 16 )
+text = "Name text goes here"
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="Sprite" type="Sprite" parent="Player Stuff/Player/Camera2D"]
-scale = Vector2( 20, 20 )
-z_index = -999
-z_as_relative = false
-texture = ExtResource( 5 )
-
-[node name="HandRotater" type="Node2D" parent="Player Stuff/Player"]
-position = Vector2( 0, 1.75861 )
-
-[node name="Hand Anim Rotater" type="Node2D" parent="Player Stuff/Player/HandRotater"]
-
-[node name="HandSpot" type="Node2D" parent="Player Stuff/Player/HandRotater/Hand Anim Rotater"]
-editor/display_folded = true
-position = Vector2( 8.453, 0 )
-
-[node name="Sprite" type="Sprite" parent="Player Stuff/Player/HandRotater/Hand Anim Rotater/HandSpot"]
-position = Vector2( 8.18472, 0.255768 )
-texture = ExtResource( 6 )
-
-[node name="Particles2D" type="Particles2D" parent="Player Stuff/Player"]
-position = Vector2( 3.05176e-05, 7.37265 )
-emitting = false
-local_coords = false
-process_material = SubResource( 3 )
+[node name="Container" type="NinePatchRect" parent="CanvasLayer/Control/Textbox/Nametext"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = -10.0
+margin_right = 12.0
+margin_bottom = -3.0
 texture = ExtResource( 7 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
 
-[node name="Particles2DAttack" type="Particles2D" parent="Player Stuff/Player"]
-position = Vector2( 3.05176e-05, 7.37265 )
-emitting = false
-amount = 16
-randomness = 1.0
-local_coords = false
-process_material = SubResource( 8 )
-texture = ExtResource( 7 )
+[node name="Speech Timer" type="Timer" parent="CanvasLayer/Control"]
+wait_time = 0.05
+script = ExtResource( 11 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player Stuff/Player"]
-anims/PlayerAttack = SubResource( 6 )
-anims/PlayerAttackPrep = SubResource( 7 )
+[node name="Enemy" parent="." instance=ExtResource( 12 )]
+position = Vector2( 130.184, -106.191 )
 
-[node name="AttackTimer" type="Timer" parent="Player Stuff/Player"]
-wait_time = 0.5
-one_shot = true
+[node name="Enemy2" parent="." instance=ExtResource( 12 )]
+position = Vector2( -115.622, -87.0014 )
 
-[node name="Hand" type="Sprite" parent="Player Stuff"]
-position = Vector2( 298.647, 269.734 )
-texture = ExtResource( 8 )
-script = ExtResource( 9 )
-pos_target_path = NodePath("../Player/HandRotater/Hand Anim Rotater/HandSpot")
+[node name="Enemy3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 5.00409, -162.953 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 138.12, 104.42 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 12 )]
+position = Vector2( -119.733, 91.8828 )
 

@@ -1,0 +1,298 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://graphics/hero_1.png" type="Texture" id=1]
+[ext_resource path="res://graphics/hero_2.png" type="Texture" id=2]
+[ext_resource path="res://graphics/hero_3.png" type="Texture" id=3]
+[ext_resource path="res://graphics/black.png" type="Texture" id=4]
+[ext_resource path="res://graphics/sword.png" type="Texture" id=5]
+[ext_resource path="res://scripts/s_particles.gd" type="Script" id=6]
+[ext_resource path="res://graphics/particle.png" type="Texture" id=7]
+[ext_resource path="res://scripts/s_damagearea.gd" type="Script" id=8]
+[ext_resource path="res://c_out.tres" type="Curve" id=9]
+[ext_resource path="res://c_flat.tres" type="Curve" id=10]
+[ext_resource path="res://audio/attack.wav" type="AudioStream" id=11]
+[ext_resource path="res://audio/step.wav" type="AudioStream" id=12]
+[ext_resource path="res://scripts/s_interacter.gd" type="Script" id=13]
+[ext_resource path="res://scripts/s_player.gd" type="Script" id=14]
+[ext_resource path="res://scripts/s_health.gd" type="Script" id=15]
+[ext_resource path="res://audio/playerhit.wav" type="AudioStream" id=16]
+[ext_resource path="res://audio/playerdie.wav" type="AudioStream" id=17]
+[ext_resource path="res://prefabs/Blood.tscn" type="PackedScene" id=18]
+[ext_resource path="res://graphics/hand.png" type="Texture" id=19]
+[ext_resource path="res://scripts/s_playerhand.gd" type="Script" id=20]
+
+[sub_resource type="Animation" id=6]
+
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Input:hand_anim_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 0.241484, 1, 0.267943, 0.196146 ),
+"update": 0,
+"values": [ -75.0, 75.0, 80.0, 0.0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Input")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_attack_sfx"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("HandRotater/Hand Anim Rotater/HandSpot/Sword/NewParticles")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "start"
+}, {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("HandRotater/Hand Anim Rotater/HandSpot/Sword/Damage Area:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=7]
+
+length = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Input:hand_anim_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 0.420448 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+
+extents = Vector2( 5.46, 6.94 )
+
+[sub_resource type="SpriteFrames" id=2]
+
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "die",
+"speed": 5.0
+} ]
+
+[sub_resource type="Curve" id=3]
+
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -1.91326, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=4]
+
+bake_resolution = 64
+_data = [ Vector2( 0, 0.3064 ), 0.0, 0.6936, 0, 1, Vector2( 1, 1 ), 0.6936, 0.0, 1, 0 ]
+
+[sub_resource type="RectangleShape2D" id=5]
+
+
+[sub_resource type="RectangleShape2D" id=8]
+
+extents = Vector2( 15, 15 )
+
+[node name="Player Stuff" type="Node2D"]
+
+[node name="Player" type="KinematicBody2D" parent="." groups=[
+"Player",
+]]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+anims/PlayerAttack = SubResource( 6 )
+anims/PlayerAttackPrep = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" groups=[
+"Player",
+]]
+position = Vector2( 0.49826, 1.16257 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
+frames = SubResource( 2 )
+speed_scale = 2.0
+playing = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+editor/display_folded = true
+current = true
+zoom = Vector2( 0.5, 0.5 )
+process_mode = 0
+smoothing_enabled = true
+smoothing_speed = 8.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+editor_draw_limits = true
+editor_draw_drag_margin = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="BG" type="Sprite" parent="Player/Camera2D"]
+scale = Vector2( 20, 20 )
+z_index = -999
+z_as_relative = false
+texture = ExtResource( 4 )
+
+[node name="HandRotater" type="Node2D" parent="Player"]
+position = Vector2( 0, 1.75861 )
+
+[node name="Hand Anim Rotater" type="Node2D" parent="Player/HandRotater"]
+
+[node name="HandSpot" type="Node2D" parent="Player/HandRotater/Hand Anim Rotater"]
+position = Vector2( 8.453, 0 )
+
+[node name="Sword" type="Sprite" parent="Player/HandRotater/Hand Anim Rotater/HandSpot"]
+position = Vector2( 8.18472, 0.255768 )
+texture = ExtResource( 5 )
+
+[node name="NewParticles" type="Node2D" parent="Player/HandRotater/Hand Anim Rotater/HandSpot/Sword"]
+editor/display_folded = true
+position = Vector2( 10.5408, -0.790558 )
+script = ExtResource( 6 )
+texture = ExtResource( 7 )
+lifetime_range = Vector2( 0.25, 1.5 )
+size_range = Vector2( 10, 35 )
+speed_range = Vector2( 0, 15 )
+size_over_lifetime = SubResource( 3 )
+speed_over_lifetime = SubResource( 4 )
+base_velocity = Vector2( 0, 0 )
+max_points = 32
+
+[node name="Timer" type="Timer" parent="Player/HandRotater/Hand Anim Rotater/HandSpot/Sword/NewParticles"]
+wait_time = 0.02
+
+[node name="Damage Area" type="Area2D" parent="Player/HandRotater/Hand Anim Rotater/HandSpot/Sword"]
+monitoring = false
+collision_mask = 14
+script = ExtResource( 8 )
+knockback_source_path = NodePath("../../../../..")
+ignore_group = "Player"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HandRotater/Hand Anim Rotater/HandSpot/Sword/Damage Area"]
+shape = SubResource( 5 )
+
+[node name="NewParticles" type="Node2D" parent="Player"]
+editor/display_folded = true
+position = Vector2( 3.05176e-05, 7.37265 )
+script = ExtResource( 6 )
+texture = ExtResource( 7 )
+size_range = Vector2( 5, 20 )
+size_over_lifetime = ExtResource( 9 )
+speed_over_lifetime = ExtResource( 10 )
+max_points = 64
+
+[node name="Timer" type="Timer" parent="Player/NewParticles"]
+wait_time = 0.1
+
+[node name="NewParticlesAttack" type="Node2D" parent="Player"]
+editor/display_folded = true
+position = Vector2( 3.05176e-05, 7.37265 )
+script = ExtResource( 6 )
+texture = ExtResource( 7 )
+lifetime_range = Vector2( 0.25, 0.5 )
+size_range = Vector2( 10, 30 )
+speed_range = Vector2( 0, 30 )
+size_over_lifetime = ExtResource( 9 )
+speed_over_lifetime = ExtResource( 9 )
+max_points = 16
+
+[node name="Timer" type="Timer" parent="Player/NewParticlesAttack"]
+wait_time = 0.05
+
+[node name="AttackTimer" type="Timer" parent="Player"]
+wait_time = 0.6
+one_shot = true
+
+[node name="AttackSFX" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 11 )
+volume_db = -4.952
+
+[node name="StepSFX" type="AudioStreamPlayer2D" parent="Player"]
+editor/display_folded = true
+stream = ExtResource( 12 )
+volume_db = -7.074
+attenuation = 0.535887
+
+[node name="Timer" type="Timer" parent="Player/StepSFX"]
+wait_time = 0.2
+
+[node name="Interaction Area" type="Area2D" parent="Player"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Interaction Area"]
+shape = SubResource( 8 )
+
+[node name="Interaction" type="Node" parent="Player/Interaction Area"]
+script = ExtResource( 13 )
+track_targets = true
+
+[node name="Input" type="Node" parent="Player"]
+script = ExtResource( 14 )
+speed = 75
+knockback = 250
+
+[node name="Health" type="Node" parent="Player"]
+script = ExtResource( 15 )
+max_health = 5
+can_hit_dead = false
+
+[node name="DamageSFX" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 16 )
+
+[node name="DieSFX" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 17 )
+
+[node name="Blood" parent="Player" instance=ExtResource( 18 )]
+
+[node name="Hand" type="Sprite" parent="."]
+position = Vector2( 9.79379, 1.55474 )
+texture = ExtResource( 19 )
+script = ExtResource( 20 )
+pos_target_path = NodePath("../Player/HandRotater/Hand Anim Rotater/HandSpot")
+
