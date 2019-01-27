@@ -1,0 +1,185 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scripts/s_propspawner.gd" type="Script" id=1]
+[ext_resource path="res://prefabs/Cactus1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/Cactus2.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/Rock1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://prefabs/Rock2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://prefabs/NPC.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/_PlayerStuff.tscn" type="PackedScene" id=7]
+[ext_resource path="res://graphics/window.png" type="Texture" id=8]
+[ext_resource path="res://theme.tres" type="Theme" id=9]
+[ext_resource path="res://scripts/s_speechtext.gd" type="Script" id=10]
+[ext_resource path="res://audio/tick.wav" type="AudioStream" id=11]
+[ext_resource path="res://scripts/s_speechtimer.gd" type="Script" id=12]
+[ext_resource path="res://scripts/s_restart.gd" type="Script" id=13]
+[ext_resource path="res://scripts/s_enemyspawner.gd" type="Script" id=14]
+
+[node name="Main" type="Node"]
+
+[node name="Floor" type="Node2D" parent="."]
+script = ExtResource( 1 )
+radius = 600.0
+
+[node name="Cactus1" parent="Floor" instance=ExtResource( 2 )]
+position = Vector2( 99.9001, 104.888 )
+
+[node name="Cactus2" parent="Floor" instance=ExtResource( 3 )]
+position = Vector2( 117.359, 116.062 )
+
+[node name="Cactus3" parent="Floor" instance=ExtResource( 2 )]
+position = Vector2( 157.164, 74.1615 )
+
+[node name="Cactus4" parent="Floor" instance=ExtResource( 3 )]
+position = Vector2( 164.147, 109.078 )
+
+[node name="Cactus5" parent="Floor" instance=ExtResource( 3 )]
+position = Vector2( 86.6317, 140.503 )
+
+[node name="Rock1" parent="Floor" instance=ExtResource( 4 )]
+position = Vector2( -67.7008, -34.0808 )
+
+[node name="Rock2" parent="Floor" instance=ExtResource( 4 )]
+position = Vector2( -55.1307, -59.2209 )
+
+[node name="Rock3" parent="Floor" instance=ExtResource( 5 )]
+position = Vector2( -56.5274, -45.9525 )
+
+[node name="Rock4" parent="Floor" instance=ExtResource( 4 )]
+position = Vector2( -9.7388, -39.6675 )
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="NPC" parent="NPCs" instance=ExtResource( 6 )]
+modulate = Color( 0.431373, 0.772549, 1, 1 )
+position = Vector2( -38.9412, -35.6633 )
+text = "Rocks rock, don’t let those pointy weeds tell you otherwise.
+Cactus guy has been a thorn in my side for too long."
+speech_name = "rock guy"
+
+[node name="NPC2" parent="NPCs" instance=ExtResource( 6 )]
+modulate = Color( 0.176471, 0.658824, 0.231373, 1 )
+position = Vector2( 117.927, 92.7572 )
+flip_h = true
+text = "Cacti are miracles of nature!
+Don’t let Rock Guy fool you, Cacti are the best."
+speech_name = "cactus guy"
+
+[node name="NPC3" parent="NPCs" instance=ExtResource( 6 )]
+modulate = Color( 0.721569, 0.290196, 0.878431, 1 )
+position = Vector2( -2.88495, 226.14 )
+flip_h = true
+text = "How could you?!
+My babies!
+My precious bats! You’ve ended them!"
+speech_name = "bat guy"
+
+[node name="Player Stuff" parent="." instance=ExtResource( 7 )]
+position = Vector2( -0.820709, -1.22942 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Textbox" type="NinePatchRect" parent="CanvasLayer/Control"]
+editor/display_folded = true
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -254.5
+margin_top = -73.3276
+margin_right = 254.5
+margin_bottom = -10.3276
+texture = ExtResource( 8 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/Textbox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+theme = ExtResource( 9 )
+text = "Speech text goes here :)"
+autowrap = true
+script = ExtResource( 10 )
+
+[node name="SFX" type="AudioStreamPlayer" parent="CanvasLayer/Control/Textbox/Text"]
+stream = ExtResource( 11 )
+
+[node name="Nametext" type="Label" parent="CanvasLayer/Control/Textbox"]
+margin_left = 12.0
+margin_top = -33.0
+margin_right = 204.0
+theme = ExtResource( 9 )
+text = "Name text goes here"
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Container" type="NinePatchRect" parent="CanvasLayer/Control/Textbox/Nametext"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = -10.0
+margin_right = 12.0
+margin_bottom = -3.0
+texture = ExtResource( 8 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Speech Timer" type="Timer" parent="CanvasLayer/Control"]
+wait_time = 0.03
+script = ExtResource( 12 )
+
+[node name="Dead Prompt" type="NinePatchRect" parent="CanvasLayer/Control"]
+editor/display_folded = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -87.5
+margin_top = -35.0
+margin_right = 87.5
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+script = ExtResource( 13 )
+health_path = NodePath("../../../Player Stuff")
+prompt_path = NodePath(".")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Dead Prompt"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.735092
+margin_bottom = 0.735092
+theme = ExtResource( 9 )
+text = "dead
+[R] to restart"
+align = 1
+valign = 1
+
+[node name="Enemy Spawner" type="Node" parent="."]
+script = ExtResource( 14 )
+radius = 200.0
+ref_path = NodePath("../Player Stuff")
+
+[node name="Timer" type="Timer" parent="Enemy Spawner"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Enemy Spawner/Timer" to="Enemy Spawner" method="spawn_enemy"]

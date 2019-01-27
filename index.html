@@ -21,13 +21,13 @@
             <button type="button" class="back button" onclick="onBack()"><i class="fas fa-arrow-left"></i></button>
             <button type="button" class="forward button" onclick="onForward()"><i class="fas fa-arrow-right"></i></button>
             <button type="button" class="refresh button" onclick="onReload()"><i class="fas fa-sync-alt"></i></button>
-            <input id="url" class="url" type="text" value="credits"/>
+            <input id="url" class="url" type="text" value="start"/>
             <button type="button" class="refresh button" onclick="loadURL()"><i class="fas fa-arrow-right"></i></button>
             <a href="web/credits.html" target="_blank"><button type="button" class="button"><i class="fas fa-question"></i></button></a>
         </div>
     </form>
 
-    <iframe id="page" class="page" src="web/credits.html"></iframe>
+    <iframe id="page" class="page" src="web/start.html"></iframe>
 
     <script>
         var _page = document.getElementById("page").contentWindow;
@@ -36,7 +36,7 @@
         var _baseURL;
         var _baseURLFound = false;
         _page.onload = function() {
-            _baseURL = _page.location.href.replace("credits.html", "");
+            _baseURL = _page.location.href.replace("start.html", "");
             _baseURLFound = true;
             console.log(`[>] The base URL is ${_baseURL}`);
         };
