@@ -14,4 +14,3 @@ func _process(delta):
 	var angle = ref.position.angle_to_point(mpos) + PI
 	target.rotation = angle
 	global_position = pos_target.global_position
-	

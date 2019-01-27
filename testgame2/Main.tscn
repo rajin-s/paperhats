@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/s_propspawner.gd" type="Script" id=1]
 [ext_resource path="res://graphics/hero_1.png" type="Texture" id=2]
 [ext_resource path="res://graphics/hero_2.png" type="Texture" id=3]
 [ext_resource path="res://scripts/s_player.gd" type="Script" id=4]
 [ext_resource path="res://graphics/black.png" type="Texture" id=5]
-[ext_resource path="res://graphics/hand.png" type="Texture" id=6]
-[ext_resource path="res://scripts/s_playerhand.gd" type="Script" id=7]
+[ext_resource path="res://graphics/sword.png" type="Texture" id=6]
+[ext_resource path="res://graphics/particle.png" type="Texture" id=7]
+[ext_resource path="res://graphics/hand.png" type="Texture" id=8]
+[ext_resource path="res://scripts/s_playerhand.gd" type="Script" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -25,6 +27,77 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 
 extents = Vector2( 5.46, 6.94 )
+
+[sub_resource type="Curve" id=4]
+
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+
+emission_shape = 1
+emission_sphere_radius = 2.25
+flag_disable_z = true
+gravity = Vector3( 0, -10, 0 )
+initial_velocity = 17.54
+initial_velocity_random = 1.0
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.8
+scale_random = 1.0
+scale_curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+
+emission_shape = 1
+emission_sphere_radius = 2.25
+flag_disable_z = true
+gravity = Vector3( 0, -10, 0 )
+initial_velocity = 17.54
+initial_velocity_random = 1.0
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.84
+scale_random = 1.0
+scale_curve = SubResource( 5 )
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "PlayerAttack"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("HandRotater/Hand Anim Rotater:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 0.241484, 1, 0.267943, 0.25 ),
+"update": 0,
+"values": [ -75.0, 75.0, 80.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+
+resource_name = "PlayerAttackPrep"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Input:hand_anim_angle")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, 1 ),
+"transitions": PoolRealArray( 1, 0.420448 ),
+"update": 0,
+"values": [ 0, -90.0 ]
+}
 
 [node name="Main" type="Node2D"]
 
@@ -48,6 +121,8 @@ shape = SubResource( 2 )
 
 [node name="Input" type="Node" parent="Player Stuff/Player"]
 script = ExtResource( 4 )
+attack_speed = 100
+hand_anim_angle = -8.18182
 
 [node name="Camera2D" type="Camera2D" parent="Player Stuff/Player"]
 editor/display_folded = true
@@ -68,12 +143,45 @@ z_as_relative = false
 texture = ExtResource( 5 )
 
 [node name="HandRotater" type="Node2D" parent="Player Stuff/Player"]
+position = Vector2( 0, 1.75861 )
 
-[node name="HandSpot" type="Node2D" parent="Player Stuff/Player/HandRotater"]
-position = Vector2( 8.4527, 2.88931 )
+[node name="Hand Anim Rotater" type="Node2D" parent="Player Stuff/Player/HandRotater"]
+
+[node name="HandSpot" type="Node2D" parent="Player Stuff/Player/HandRotater/Hand Anim Rotater"]
+editor/display_folded = true
+position = Vector2( 8.453, 0 )
+
+[node name="Sprite" type="Sprite" parent="Player Stuff/Player/HandRotater/Hand Anim Rotater/HandSpot"]
+position = Vector2( 8.18472, 0.255768 )
+texture = ExtResource( 6 )
+
+[node name="Particles2D" type="Particles2D" parent="Player Stuff/Player"]
+position = Vector2( 3.05176e-05, 7.37265 )
+emitting = false
+local_coords = false
+process_material = SubResource( 3 )
+texture = ExtResource( 7 )
+
+[node name="Particles2DAttack" type="Particles2D" parent="Player Stuff/Player"]
+position = Vector2( 3.05176e-05, 7.37265 )
+emitting = false
+amount = 16
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 8 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player Stuff/Player"]
+anims/PlayerAttack = SubResource( 6 )
+anims/PlayerAttackPrep = SubResource( 7 )
+
+[node name="AttackTimer" type="Timer" parent="Player Stuff/Player"]
+wait_time = 0.5
+one_shot = true
 
 [node name="Hand" type="Sprite" parent="Player Stuff"]
-position = Vector2( 297.453, 272.889 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+position = Vector2( 298.647, 269.734 )
+texture = ExtResource( 8 )
+script = ExtResource( 9 )
+pos_target_path = NodePath("../Player/HandRotater/Hand Anim Rotater/HandSpot")
 
