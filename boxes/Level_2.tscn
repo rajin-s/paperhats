@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://NewLevelSound.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Art/background.png" type="Texture" id=3]
+[ext_resource path="res://GUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://player/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://wall.tscn" type="PackedScene" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 495.888, 10 )
+
+[node name="Main" type="Node"]
+
+script = ExtResource( 1 )
+blocks = 6
+next_level = "res://Level_3.tscn"
+
+[node name="NewLevelSound" parent="." index="0" instance=ExtResource( 2 )]
+
+pitch_scale = 1.0
+
+[node name="background" type="Sprite" parent="." index="1"]
+
+position = Vector2( 521.715, 305.985 )
+scale = Vector2( 17.0875, 10.4661 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Z Index" ]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="2"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="GUI" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
+
+margin_right = 148.0
+margin_bottom = 80.0
+
+[node name="player" parent="." index="3" instance=ExtResource( 5 )]
+
+position = Vector2( 507.87, 385.992 )
+
+[node name="wall" parent="." index="4" groups=[
+"floor",
+] instance=ExtResource( 6 )]
+
+position = Vector2( 514.241, 476.514 )
+scale = Vector2( 17.3557, 1 )
+mode = 1
+
+[node name="wall2" parent="." index="5" instance=ExtResource( 6 )]
+
+position = Vector2( -5.79901, 94.5225 )
+rotation = 1.5708
+scale = Vector2( 17.3557, 1 )
+mode = 1
+_sections_unfolded = [ "Angular", "Transform" ]
+
+[node name="wall3" parent="." index="6" instance=ExtResource( 6 )]
+
+position = Vector2( 796.81, 86.949 )
+rotation = 1.5708
+scale = Vector2( 17.3557, 1 )
+mode = 1
+_sections_unfolded = [ "Angular", "Transform" ]
+
+[node name="wall4" parent="." index="7" groups=[
+"floor",
+] instance=ExtResource( 6 )]
+
+position = Vector2( 268.283, 283.858 )
+scale = Vector2( 8.02101, 1 )
+mode = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="win_area" type="Area2D" parent="." index="8"]
+
+position = Vector2( 517.018, -24.1174 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="win_area" index="0"]
+
+shape = SubResource( 1 )
+
+
