@@ -21,7 +21,7 @@
 [ext_resource path="res://graphics/hand.png" type="Texture" id=19]
 [ext_resource path="res://scripts/s_playerhand.gd" type="Script" id=20]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 
 length = 1.5
 tracks/0/type = "value"
@@ -80,7 +80,7 @@ tracks/3/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 
 length = 0.25
 tracks/0/type = "value"
@@ -96,11 +96,11 @@ tracks/0/keys = {
 "values": [ -90.0 ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 
 extents = Vector2( 5.46, 6.94 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=4]
 
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
@@ -108,27 +108,27 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "run",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": false,
 "name": "die",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
 } ]
 
-[sub_resource type="Curve" id=3]
+[sub_resource type="Curve" id=5]
 
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -1.91326, 0.0, 0, 0 ]
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=6]
 
 bake_resolution = 64
 _data = [ Vector2( 0, 0.3064 ), 0.0, 0.6936, 0, 1, Vector2( 1, 1 ), 0.6936, 0.0, 1, 0 ]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=7]
 
 
 [sub_resource type="RectangleShape2D" id=8]
@@ -142,17 +142,17 @@ extents = Vector2( 15, 15 )
 ]]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-anims/PlayerAttack = SubResource( 6 )
-anims/PlayerAttackPrep = SubResource( 7 )
+anims/PlayerAttack = SubResource( 1 )
+anims/PlayerAttackPrep = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" groups=[
 "Player",
 ]]
 position = Vector2( 0.49826, 1.16257 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
-frames = SubResource( 2 )
+frames = SubResource( 4 )
 speed_scale = 2.0
 playing = true
 
@@ -199,8 +199,8 @@ texture = ExtResource( 7 )
 lifetime_range = Vector2( 0.25, 1.5 )
 size_range = Vector2( 10, 35 )
 speed_range = Vector2( 0, 15 )
-size_over_lifetime = SubResource( 3 )
-speed_over_lifetime = SubResource( 4 )
+size_over_lifetime = SubResource( 5 )
+speed_over_lifetime = SubResource( 6 )
 base_velocity = Vector2( 0, 0 )
 max_points = 32
 
@@ -215,7 +215,7 @@ knockback_source_path = NodePath("../../../../..")
 ignore_group = "Player"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/HandRotater/Hand Anim Rotater/HandSpot/Sword/Damage Area"]
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="NewParticles" type="Node2D" parent="Player"]
 editor/display_folded = true
@@ -279,7 +279,7 @@ knockback = 250
 
 [node name="Health" type="Node" parent="Player"]
 script = ExtResource( 15 )
-max_health = 5
+max_health = 19
 can_hit_dead = false
 
 [node name="DamageSFX" type="AudioStreamPlayer2D" parent="Player"]

@@ -26,7 +26,7 @@ func remove_interaction_target(target):
 		interaction.emit_signal("on_leave_interaction")
 
 func recieve_interaction(source):
-	print("%s recieved interaction from %s" % [ name, source.name ])
+	#print("%s recieved interaction from %s" % [ name, source.name ])
 	emit_signal("on_interact")
 
 func interact():

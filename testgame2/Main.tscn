@@ -1,84 +1,267 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/s_propspawner.gd" type="Script" id=1]
-[ext_resource path="res://graphics/hero_1.png" type="Texture" id=2]
-[ext_resource path="res://scripts/s_interacter.gd" type="Script" id=3]
-[ext_resource path="res://scripts/s_talker.gd" type="Script" id=4]
-[ext_resource path="res://graphics/bubble.png" type="Texture" id=5]
-[ext_resource path="res://prefabs/_PlayerStuff.tscn" type="PackedScene" id=6]
-[ext_resource path="res://graphics/window.png" type="Texture" id=7]
-[ext_resource path="res://Minimal5x7.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://scripts/s_speechtext.gd" type="Script" id=9]
-[ext_resource path="res://audio/tick.wav" type="AudioStream" id=10]
-[ext_resource path="res://scripts/s_speechtimer.gd" type="Script" id=11]
-[ext_resource path="res://prefabs/Enemy.tscn" type="PackedScene" id=12]
-
-[sub_resource type="RectangleShape2D" id=13]
-
-extents = Vector2( 15, 15 )
-
-[sub_resource type="RectangleShape2D" id=14]
-
-extents = Vector2( 4.35, 6.96 )
-
-[sub_resource type="DynamicFont" id=15]
-
-size = 32
-font_data = ExtResource( 8 )
-
-[sub_resource type="Theme" id=16]
-
-default_font = SubResource( 15 )
+[ext_resource path="res://prefabs/cliff.tscn" type="PackedScene" id=2]
+[ext_resource path="res://prefabs/cliffB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/NPC.tscn" type="PackedScene" id=4]
+[ext_resource path="res://graphics/grave.png" type="Texture" id=5]
+[ext_resource path="res://prefabs/Interval Trigger.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefabs/_PlayerStuff.tscn" type="PackedScene" id=7]
+[ext_resource path="res://graphics/window.png" type="Texture" id=8]
+[ext_resource path="res://theme.tres" type="Theme" id=9]
+[ext_resource path="res://scripts/s_speechtext.gd" type="Script" id=10]
+[ext_resource path="res://audio/tick.wav" type="AudioStream" id=11]
+[ext_resource path="res://scripts/s_speechtimer.gd" type="Script" id=12]
+[ext_resource path="res://scripts/s_restart.gd" type="Script" id=13]
+[ext_resource path="res://scripts/s_enemyspawner.gd" type="Script" id=14]
 
 [node name="Main" type="Node"]
 
 [node name="Floor" type="Node2D" parent="."]
+position = Vector2( 893.062, 2.65002 )
 script = ExtResource( 1 )
 count = 500
 
-[node name="NPC" type="Sprite" parent="."]
-editor/display_folded = true
-modulate = Color( 0.65098, 1, 0.431373, 1 )
-position = Vector2( 11.6066, 90.5326 )
-texture = ExtResource( 2 )
-
-[node name="Interaction Area" type="Area2D" parent="NPC"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/Interaction Area"]
-shape = SubResource( 13 )
-
-[node name="Interaction" type="Node" parent="NPC/Interaction Area"]
-script = ExtResource( 3 )
-
-[node name="Speech" type="Node" parent="NPC/Interaction Area/Interaction"]
-script = ExtResource( 4 )
-speech_name = "Georg"
-text = "Hello there.
-I am a cool guy.
-You should talk to me more!
-Bye!"
-bubble_path = NodePath("../../../../NPC/TalkBubble")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="NPC"]
+[node name="Cliffs" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/StaticBody2D"]
-shape = SubResource( 14 )
+[node name="cliff" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1.70639, -82.7428 )
 
-[node name="TalkBubble" type="Sprite" parent="NPC"]
-position = Vector2( 7.85056, -11.9328 )
+[node name="cliff10" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( -125.136, -66.2476 )
+
+[node name="cliff11" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( -172.915, -52.0276 )
+
+[node name="cliff12" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( -193.349, -39.8391 )
+flip_h = true
+
+[node name="cliff2" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 127.809, -77.5599 )
+
+[node name="cliff3" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 256.033, -70.6556 )
+
+[node name="cliff4" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 381.629, -80.6918 )
+
+[node name="cliff5" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 507.049, -59.2633 )
+
+[node name="cliff6" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 630.916, -40.5234 )
+
+[node name="cliff7" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 758.687, -36.1343 )
+
+[node name="cliff8" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 880.977, -43.0246 )
+
+[node name="cliff9" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1004.94, -57.29 )
+
+[node name="cliff13" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1126.32, -66.5558 )
+
+[node name="cliff14" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1249.09, -82.3077 )
+
+[node name="cliff15" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1372.79, -98.9862 )
+
+[node name="cliff16" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1496.49, -113.812 )
+
+[node name="cliff17" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1619.73, -112.998 )
+
+[node name="cliff18" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1849.49, -110.687 )
+
+[node name="cliff20" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1972.39, -110.687 )
+
+[node name="cliff19" parent="Cliffs" instance=ExtResource( 2 )]
+position = Vector2( 1725.3, -112.324 )
+
+[node name="cliffB" parent="Cliffs" instance=ExtResource( 3 )]
+
+[node name="cliffB10" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( -129.959, 35.7586 )
+
+[node name="cliffB11" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( -235.301, 25.8946 )
+
+[node name="cliffB12" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( -264.481, 9.68383 )
+
+[node name="cliffB13" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( -285.014, -8.68839 )
+
+[node name="cliffB2" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 124.357, 29.7482 )
+
+[node name="cliffB3" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 252.616, 40.477 )
+
+[node name="cliffB4" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 381.849, 34.6249 )
+
+[node name="cliffB5" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 511.083, 46.3291 )
+
+[node name="cliffB6" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 641.292, 41.4524 )
+
+[node name="cliffB7" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 768.088, 37.0633 )
+
+[node name="cliffB8" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 887.139, 41.917 )
+
+[node name="cliffB9" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1010.41, 46.1288 )
+
+[node name="cliffB14" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1133.61, 54.3422 )
+
+[node name="cliffB15" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1233.71, 42.5354 )
+
+[node name="cliffB16" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1250.14, 32.2686 )
+
+[node name="cliffB17" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1262.97, 14.3016 )
+
+[node name="cliffB18" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1376.42, 19.9483 )
+
+[node name="cliffB19" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1501.62, 5.03577 )
+
+[node name="cliffB20" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1622.08, 1.13437 )
+
+[node name="cliffB21" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1684.01, -11.0575 )
+
+[node name="cliffB22" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1700.11, -20.3233 )
+
+[node name="cliffB23" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1781.06, -24.7497 )
+
+[node name="cliffB24" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1865.01, -31.6144 )
+
+[node name="cliffB25" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1933.08, -36.0262 )
+
+[node name="cliffB26" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 1986.16, -50.9203 )
+
+[node name="cliffB27" parent="Cliffs" instance=ExtResource( 3 )]
+position = Vector2( 2012.49, -73.8411 )
+
+[node name="NPCs" type="Node2D" parent="."]
+
+[node name="NPC" parent="NPCs" instance=ExtResource( 4 )]
+text = "You guys wanted another game, so here you go. "
+
+[node name="NPC2" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 305.41, 13.7529 )
+text = "Not what you expected? Same here."
+speech_name = "paperhat"
+
+[node name="NPC3" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 430.455, -49.4035 )
+text = "I thought I knew what I was doing.
+I didn’t.
+But you knew that.
+"
+speech_name = "paperha"
+
+[node name="NPC4" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 666.58, 18.0501 )
+text = "You knew I wasn’t any good.
+You told me.
+Repeatedly.
+So many of you told me. 
+"
+speech_name = "paperh"
+
+[node name="NPC5" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 985.034, -14.9057 )
+text = "I tried to ignore it.
+But when more and more show up, it’s hard to ignore...
+right?"
+speech_name = "paper"
+
+[node name="NPC6" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 1170.57, 13.1132 )
+text = "You were all right.
+I failed.
+And this is the last you’ll hear from me. "
+speech_name = "p"
+
+[node name="NPC7" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 1293.54, -46.0626 )
+text = "I know you won’t miss me.
+No one else ever has."
+speech_name = "        "
+
+[node name="NPC8" parent="NPCs" instance=ExtResource( 4 )]
+position = Vector2( 1558.54, -53.334 )
+text = "Goodbye."
+speech_name = "   "
+
+[node name="NPC10" parent="NPCs" instance=ExtResource( 4 )]
+modulate = Color( 1, 1, 1, 1 )
+position = Vector2( 1918.39, -76.1936 )
 texture = ExtResource( 5 )
+text = "goodbye"
+speech_name = "null"
 
-[node name="Player Stuff" parent="." instance=ExtResource( 6 )]
+[node name="Triggers" type="Node2D" parent="."]
+
+[node name="Interval Trigger" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 176.27, -18.9937 )
+timer_path = NodePath("../../Enemy Spawner/Timer")
+interval = 10.0
+
+[node name="Interval Trigger2" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 501.395, -3.40953 )
+timer_path = NodePath("../../Enemy Spawner/Timer")
+interval = 6.0
+
+[node name="Interval Trigger3" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 951.135, -3.40953 )
+timer_path = NodePath("../../Enemy Spawner/Timer")
+interval = 4.0
+
+[node name="Interval Trigger4" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 1329.79, -37.0108 )
+timer_path = NodePath("../../Enemy Spawner/Timer")
+interval = 2.0
+
+[node name="Interval Trigger5" parent="Triggers" instance=ExtResource( 6 )]
+position = Vector2( 1884.44, -70.6984 )
+timer_path = NodePath("../../Enemy Spawner/Timer")
+
+[node name="Player Stuff" parent="." instance=ExtResource( 7 )]
+position = Vector2( -0.820709, -1.22942 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Textbox" type="NinePatchRect" parent="CanvasLayer/Control"]
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -87,33 +270,32 @@ margin_left = -254.5
 margin_top = -73.3276
 margin_right = 254.5
 margin_bottom = -10.3276
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 patch_margin_left = 10
 patch_margin_top = 10
 patch_margin_right = 10
 patch_margin_bottom = 10
 
 [node name="Text" type="Label" parent="CanvasLayer/Control/Textbox"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
 margin_top = 10.0
 margin_right = -10.0
 margin_bottom = -10.0
-theme = SubResource( 16 )
+theme = ExtResource( 9 )
 text = "Speech text goes here :)"
 autowrap = true
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="CanvasLayer/Control/Textbox/Text"]
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 
 [node name="Nametext" type="Label" parent="CanvasLayer/Control/Textbox"]
 margin_left = 12.0
 margin_top = -33.0
 margin_right = 204.0
-theme = SubResource( 16 )
+theme = ExtResource( 9 )
 text = "Name text goes here"
 __meta__ = {
 "_edit_group_": true
@@ -127,28 +309,55 @@ margin_left = -12.0
 margin_top = -10.0
 margin_right = 12.0
 margin_bottom = -3.0
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 patch_margin_left = 10
 patch_margin_top = 10
 patch_margin_right = 10
 patch_margin_bottom = 10
 
 [node name="Speech Timer" type="Timer" parent="CanvasLayer/Control"]
-wait_time = 0.05
-script = ExtResource( 11 )
+wait_time = 0.03
+script = ExtResource( 12 )
 
-[node name="Enemy" parent="." instance=ExtResource( 12 )]
-position = Vector2( 130.184, -106.191 )
+[node name="Dead Prompt" type="NinePatchRect" parent="CanvasLayer/Control"]
+editor/display_folded = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -87.5
+margin_top = -35.0
+margin_right = 87.5
+margin_bottom = 35.0
+texture = ExtResource( 8 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+script = ExtResource( 13 )
+health_path = NodePath("../../../Player Stuff")
+prompt_path = NodePath(".")
 
-[node name="Enemy2" parent="." instance=ExtResource( 12 )]
-position = Vector2( -115.622, -87.0014 )
+[node name="Label" type="Label" parent="CanvasLayer/Control/Dead Prompt"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 0.735092
+margin_bottom = 0.735092
+theme = ExtResource( 9 )
+text = "dead
+[R] to restart"
+align = 1
+valign = 1
 
-[node name="Enemy3" parent="." instance=ExtResource( 12 )]
-position = Vector2( 5.00409, -162.953 )
+[node name="Enemy Spawner" type="Node" parent="."]
+editor/display_folded = true
+script = ExtResource( 14 )
+radius = 150.0
+ref_path = NodePath("../Player Stuff")
 
-[node name="Enemy4" parent="." instance=ExtResource( 12 )]
-position = Vector2( 138.12, 104.42 )
+[node name="Timer" type="Timer" parent="Enemy Spawner"]
+wait_time = 100.0
+autostart = true
 
-[node name="Enemy5" parent="." instance=ExtResource( 12 )]
-position = Vector2( -119.733, 91.8828 )
-
+[connection signal="timeout" from="Enemy Spawner/Timer" to="Enemy Spawner" method="spawn_enemy"]

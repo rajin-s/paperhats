@@ -31,7 +31,7 @@ func _ready():
 	track_timer.connect("timeout", self, "track_target")
 
 func process_target_enter(overlap):
-	print(overlap.name)
+	#print(overlap.name)
 	if overlap.is_in_group("Player") and target == null:
 		target = overlap
 		

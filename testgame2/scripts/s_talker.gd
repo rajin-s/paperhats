@@ -8,6 +8,14 @@ var bubble
 var lines = []
 var current_line = 0
 
+func set_text(t):
+	text = t
+	lines = text.split("\n")
+	lines.append("END")
+
+func set_speech_name(n):
+	speech_name = n
+
 func _ready():
 	lines = text.split("\n")
 	lines.append("END")
