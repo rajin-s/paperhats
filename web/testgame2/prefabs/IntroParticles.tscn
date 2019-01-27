@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/s_particles.gd" type="Script" id=1]
+[ext_resource path="res://graphics/particle.png" type="Texture" id=2]
+[ext_resource path="res://c_out.tres" type="Curve" id=3]
+
+[node name="Particles" type="Node2D"]
+position = Vector2( 150.1, -15.2 )
+script = ExtResource( 1 )
+texture = ExtResource( 2 )
+lifetime_range = Vector2( 8, 15 )
+size_range = Vector2( 8, 24 )
+speed_range = Vector2( 0, 24 )
+size_over_lifetime = ExtResource( 3 )
+speed_over_lifetime = ExtResource( 3 )
+base_velocity = Vector2( 0, 16 )
+max_points = 50
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://prefabs/Cactus1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://graphics/tile_08.png" type="Texture" id=2]
+
+[node name="Stump1" index="0" instance=ExtResource( 1 )]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2( 0.157784, 0.631119 )
+

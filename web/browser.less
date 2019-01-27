@@ -1,0 +1,165 @@
+// Constants
+@white: #ddd;
+@grey: #999;
+@black: #333;
+@blue: #0063b1;
+@plum: #331232;
+
+@bar-height: 42px;
+@bar-color: @blue;
+
+@fast: 0.2s;
+
+// Mixins
+._main-font {
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+// Behavior Mixins
+._no-select(@cursor: unset) {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Chrome/Safari/Opera */
+    -khtml-user-select: none;
+    /* Konqueror */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+		 not supported by any browser */
+    cursor: @cursor;
+}
+
+// Misc Mixins
+@c_out: cubic-bezier(0.215, 0.61, 0.355, 1);
+._smooth(@time: @t_medium, @curve: @c_out) {
+    transition: all @time @curve;
+}
+._enableBorder(@width: @s_border) {
+    border-width: @width;
+    border-style: solid;
+}
+._font(@family, @size: 1em, @color: inherit, @weight: 400, @style: normal) {
+    font-family: @family;
+    font-size: @size;
+    font-weight: @weight;
+    font-style: @style;
+    color: @color;
+}
+
+body, html {
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background-color: @white;
+    color: @black;
+    font-size: 1.1rem;
+    
+    ._main-font;
+}
+
+a {
+    color: @blue;
+}
+.center {
+    text-align: center;
+}
+
+.browser {
+    .bar {
+        height: @bar-height;
+        background-color: @bar-color;
+        background-color: -webkit-win-accentcolor;
+        color: @white;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+
+        & > * {
+            margin-right: 7px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        
+        .url {
+            flex-grow: 100;
+            ._smooth(@fast);
+            ._main-font;
+            box-sizing: border-box;
+            width: 100%;
+            border-radius: 999px;
+            font-size: 14px;
+            background: @white;
+            color: @grey;
+            border: none;
+            outline: none;
+            padding: 5px 15px;
+
+            &:focus {
+                color: @black;
+            }
+        }
+
+        .button {
+            flex-grow: 1;
+            outline: none;
+            border: none;
+
+            ._smooth(@fast);
+            display: block;
+            border-radius: 999px;
+
+            background-color: @bar-color;
+            color: @white;
+
+            font-size: 14px;
+            height: 28px;
+            width: 32px;
+
+            text-align: center;
+            vertical-align: middle;
+
+            cursor: pointer;
+
+            &:hover {
+                background: @white;
+                color: @bar-color;
+            }
+
+            &.refresh i {
+                position: relative;
+                left: 0px;
+            }
+            &.forward i {
+                position: relative;
+                left: 0px;
+            }
+            &.back i {
+                position: relative;
+                left: 0px;
+            }
+        }
+    }
+
+    .page {
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-top: @bar-height;
+        z-index: -1000;
+    }
+}

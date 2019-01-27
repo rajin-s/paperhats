@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/s_particles.gd" type="Script" id=1]
+[ext_resource path="res://graphics/particle.png" type="Texture" id=2]
+[ext_resource path="res://c_out.tres" type="Curve" id=3]
+
+[sub_resource type="Curve" id=4]
+
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.472364, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Blood" type="Node2D"]
+modulate = Color( 1, 0.290196, 0.423529, 1 )
+script = ExtResource( 1 )
+texture = ExtResource( 2 )
+lifetime_range = Vector2( 1, 2 )
+size_range = Vector2( 4, 16 )
+speed_range = Vector2( 0, 40 )
+size_over_lifetime = ExtResource( 3 )
+speed_over_lifetime = SubResource( 4 )
+base_velocity = Vector2( 0, 0 )
+max_points = 32
+

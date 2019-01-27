@@ -1,0 +1,154 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://scripts/s_propspawner.gd" type="Script" id=1]
+[ext_resource path="res://graphics/hero_1.png" type="Texture" id=2]
+[ext_resource path="res://scripts/s_interacter.gd" type="Script" id=3]
+[ext_resource path="res://scripts/s_talker.gd" type="Script" id=4]
+[ext_resource path="res://graphics/bubble.png" type="Texture" id=5]
+[ext_resource path="res://prefabs/_PlayerStuff.tscn" type="PackedScene" id=6]
+[ext_resource path="res://graphics/window.png" type="Texture" id=7]
+[ext_resource path="res://Minimal5x7.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://scripts/s_speechtext.gd" type="Script" id=9]
+[ext_resource path="res://audio/tick.wav" type="AudioStream" id=10]
+[ext_resource path="res://scripts/s_speechtimer.gd" type="Script" id=11]
+[ext_resource path="res://prefabs/Enemy.tscn" type="PackedScene" id=12]
+
+[sub_resource type="RectangleShape2D" id=13]
+
+extents = Vector2( 15, 15 )
+
+[sub_resource type="RectangleShape2D" id=14]
+
+extents = Vector2( 4.35, 6.96 )
+
+[sub_resource type="DynamicFont" id=15]
+
+size = 32
+font_data = ExtResource( 8 )
+
+[sub_resource type="Theme" id=16]
+
+default_font = SubResource( 15 )
+
+[node name="Main" type="Node"]
+
+[node name="Floor" type="Node2D" parent="."]
+script = ExtResource( 1 )
+count = 500
+
+[node name="NPC" type="Sprite" parent="."]
+editor/display_folded = true
+modulate = Color( 0.65098, 1, 0.431373, 1 )
+position = Vector2( 11.6066, 90.5326 )
+texture = ExtResource( 2 )
+
+[node name="Interaction Area" type="Area2D" parent="NPC"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/Interaction Area"]
+shape = SubResource( 13 )
+
+[node name="Interaction" type="Node" parent="NPC/Interaction Area"]
+script = ExtResource( 3 )
+
+[node name="Speech" type="Node" parent="NPC/Interaction Area/Interaction"]
+script = ExtResource( 4 )
+speech_name = "Georg"
+text = "Hello there.
+I am a cool guy.
+You should talk to me more!
+Bye!"
+bubble_path = NodePath("../../../../NPC/TalkBubble")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NPC"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NPC/StaticBody2D"]
+shape = SubResource( 14 )
+
+[node name="TalkBubble" type="Sprite" parent="NPC"]
+position = Vector2( 7.85056, -11.9328 )
+texture = ExtResource( 5 )
+
+[node name="Player Stuff" parent="." instance=ExtResource( 6 )]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Textbox" type="NinePatchRect" parent="CanvasLayer/Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -254.5
+margin_top = -73.3276
+margin_right = 254.5
+margin_bottom = -10.3276
+texture = ExtResource( 7 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Text" type="Label" parent="CanvasLayer/Control/Textbox"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = -10.0
+theme = SubResource( 16 )
+text = "Speech text goes here :)"
+autowrap = true
+script = ExtResource( 9 )
+
+[node name="SFX" type="AudioStreamPlayer" parent="CanvasLayer/Control/Textbox/Text"]
+stream = ExtResource( 10 )
+
+[node name="Nametext" type="Label" parent="CanvasLayer/Control/Textbox"]
+margin_left = 12.0
+margin_top = -33.0
+margin_right = 204.0
+theme = SubResource( 16 )
+text = "Name text goes here"
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Container" type="NinePatchRect" parent="CanvasLayer/Control/Textbox/Nametext"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -12.0
+margin_top = -10.0
+margin_right = 12.0
+margin_bottom = -3.0
+texture = ExtResource( 7 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="Speech Timer" type="Timer" parent="CanvasLayer/Control"]
+wait_time = 0.05
+script = ExtResource( 11 )
+
+[node name="Enemy" parent="." instance=ExtResource( 12 )]
+position = Vector2( 130.184, -106.191 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 12 )]
+position = Vector2( -115.622, -87.0014 )
+
+[node name="Enemy3" parent="." instance=ExtResource( 12 )]
+position = Vector2( 5.00409, -162.953 )
+
+[node name="Enemy4" parent="." instance=ExtResource( 12 )]
+position = Vector2( 138.12, 104.42 )
+
+[node name="Enemy5" parent="." instance=ExtResource( 12 )]
+position = Vector2( -119.733, 91.8828 )
+
