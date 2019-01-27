@@ -1,0 +1,79 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/s_propspawner.gd" type="Script" id=1]
+[ext_resource path="res://graphics/hero_1.png" type="Texture" id=2]
+[ext_resource path="res://graphics/hero_2.png" type="Texture" id=3]
+[ext_resource path="res://scripts/s_player.gd" type="Script" id=4]
+[ext_resource path="res://graphics/black.png" type="Texture" id=5]
+[ext_resource path="res://graphics/hand.png" type="Texture" id=6]
+[ext_resource path="res://scripts/s_playerhand.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+extents = Vector2( 5.46, 6.94 )
+
+[node name="Main" type="Node2D"]
+
+[node name="Floor" type="Node2D" parent="."]
+script = ExtResource( 1 )
+count = 500
+
+[node name="Player Stuff" type="Node2D" parent="."]
+
+[node name="Player" type="KinematicBody2D" parent="Player Stuff"]
+position = Vector2( 289, 270 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player Stuff/Player"]
+frames = SubResource( 1 )
+speed_scale = 2.0
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Stuff/Player"]
+position = Vector2( 0.49826, 1.16257 )
+shape = SubResource( 2 )
+
+[node name="Input" type="Node" parent="Player Stuff/Player"]
+script = ExtResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="Player Stuff/Player"]
+editor/display_folded = true
+current = true
+zoom = Vector2( 0.5, 0.5 )
+process_mode = 0
+smoothing_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Player Stuff/Player/Camera2D"]
+scale = Vector2( 20, 20 )
+z_index = -999
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="HandRotater" type="Node2D" parent="Player Stuff/Player"]
+
+[node name="HandSpot" type="Node2D" parent="Player Stuff/Player/HandRotater"]
+position = Vector2( 8.4527, 2.88931 )
+
+[node name="Hand" type="Sprite" parent="Player Stuff"]
+position = Vector2( 297.453, 272.889 )
+texture = ExtResource( 6 )
+script = ExtResource( 7 )
+
